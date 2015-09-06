@@ -1,5 +1,5 @@
 
-package projetobiblioteca;
+package projetobiblioteca.visao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,10 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class JanelaCadastrarDistribuidora extends javax.swing.JFrame {
+public class JanCadastrarDistribuidora extends javax.swing.JFrame {
 
     
-    public JanelaCadastrarDistribuidora() {
+    public JanCadastrarDistribuidora() {
         initComponents();
     }
 
@@ -120,7 +120,7 @@ public class JanelaCadastrarDistribuidora extends javax.swing.JFrame {
             c.close();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(JanelaCadastrarDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -142,13 +142,13 @@ public class JanelaCadastrarDistribuidora extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JanelaCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JanelaCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JanelaCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -156,7 +156,7 @@ public class JanelaCadastrarDistribuidora extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JanelaCadastrarDistribuidora().setVisible(true);
+                new JanCadastrarDistribuidora().setVisible(true);
             }
         });
     }
