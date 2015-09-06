@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import projetobiblioteca.visao.JanCadastrarDistribuidora;
 import projetobiblioteca.negocio.Distribuidora;
-
-
 
 
 public class PersistenciaDistribuidora {
@@ -30,7 +29,7 @@ public class PersistenciaDistribuidora {
             c.close();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
         }
     
     }
