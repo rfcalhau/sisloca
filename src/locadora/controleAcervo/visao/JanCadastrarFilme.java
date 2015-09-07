@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import locadora.controleAcervo.negocio.Distribuidora;
 import locadora.controleAcervo.negocio.Funcionario;
+import locadora.controleAcervo.negocio.Genero;
 
 
 public class JanCadastrarFilme extends javax.swing.JFrame {
@@ -18,7 +19,10 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         List<Distribuidora> distribuidoras = Funcionario.obterDistribuidoras();
         
         for(Distribuidora d : distribuidoras)
-            cbDistribuidora.addItem(d);
+            this.cbDistribuidora.addItem(d);
+        
+        for(Genero g: Genero.values())
+            this.cbGenero.addItem(g);
         
     }
 
@@ -34,7 +38,6 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jTextField4 = new javax.swing.JTextField();
@@ -50,6 +53,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
+        cbGenero = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,8 +75,6 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-
-        jTextField3.setText("Ficção");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -125,9 +127,9 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(cbGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField2)
-                            .addComponent(jTextField3)
+                            .addComponent(jTextField1)
                             .addComponent(jTextField4)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
@@ -169,7 +171,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -205,7 +207,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(48, Short.MAX_VALUE))))
+                        .addContainerGap(47, Short.MAX_VALUE))))
         );
 
         pack();
@@ -220,7 +222,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         
         String to = this.jTextField1.getText();
         String tp = this.jTextField2.getText();
-        String ge = this.jTextField3.getText();
+        Genero ge = (Genero) this.cbGenero.getSelectedItem();
         int du = Integer.valueOf(this.jTextField4.getText());
         String at = this.jTextField5.getText();
         String dir = this.jTextField6.getText();
@@ -275,6 +277,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbDistribuidora;
+    private javax.swing.JComboBox cbGenero;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -291,7 +294,6 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;

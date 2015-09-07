@@ -22,7 +22,7 @@ public class Funcionario {
     }
 
     public static void inserirFilme(Distribuidora dis, String tituloOr, 
-            String tituloPort, String genero, int duracao, String atores, 
+            String tituloPort, Genero genero, int duracao, String atores, 
             String diretores, boolean ehLancamento, String sinopse,
             int ano, String paises) {
         

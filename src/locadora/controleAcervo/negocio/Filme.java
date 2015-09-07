@@ -7,7 +7,7 @@ public class Filme {
     private String tituloOriginal;
     private String tituloPortugues;
     private String sinopse;
-    private String genero;
+    private Genero genero;
     private String paises;
     private String atores;
     private String diretores;
@@ -26,7 +26,7 @@ public class Filme {
     
     
     public Filme(String tituloOriginal, String tituloPortugues, String sinopse, 
-            String genero, String paises, String atores, 
+            Genero genero, String paises, String atores, 
             String diretores, int duracao, int ano, boolean ehLancamento, 
             Distribuidora distribuidora) {
         this.tituloOriginal = tituloOriginal;
@@ -79,7 +79,7 @@ public class Filme {
         this.sinopse = sinopse;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -93,7 +93,7 @@ public class Filme {
         this.ano = ano;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
