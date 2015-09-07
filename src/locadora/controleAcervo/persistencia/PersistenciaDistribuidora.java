@@ -12,16 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import locadora.controleAcervo.negocio.Distribuidora;
+import util.persistencia.Conexao;
 
 
 public class PersistenciaDistribuidora {
     
     public static void inserir (Distribuidora d) {
      try {
-            Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/locadora",
-                    "postgres", "postgres");
-           
-            Class.forName("org.postgresql.Driver");
+            Connection c = Conexao.conectar();
             
             Statement st = c.createStatement();
             String consulta = "INSERT INTO distribuidoras (razaosocial, cnpj) VALUES ('"
@@ -29,7 +27,8 @@ public class PersistenciaDistribuidora {
             st.execute(consulta);
             
             st.close();
-            c.close();
+            
+            Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
             Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,10 +42,7 @@ public class PersistenciaDistribuidora {
         
         try {
             // faz conexao com o banco
-            Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/locadora",
-                    "postgres", "postgres");
-            // carrega a classe
-            Class.forName("org.postgresql.Driver");
+            Connection c = Conexao.conectar();
             
             // realiza consulta
             Statement st = c.createStatement();
@@ -56,14 +52,15 @@ public class PersistenciaDistribuidora {
             //obtem resultados
             while(rs.next()) {
                 String cnpj = rs.getString("cnpj");
-                
+                int id = rs.getInt("id");
                 String razaoSocial = rs.getString("razaosocial");
                 Distribuidora d = new Distribuidora(razaoSocial, cnpj);
+                d.setId(id);
                 distribuidoras.add(d);
             }
             
             st.close();
-            c.close();
+            Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
             Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);

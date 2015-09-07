@@ -3,6 +3,7 @@ package locadora.controleAcervo.negocio;
 
 
 public class Filme {
+    private int id; // chave primaria
     private String tituloOriginal;
     private String tituloPortugues;
     private String sinopse;
@@ -15,6 +16,15 @@ public class Filme {
     private boolean ehLancamento;
     private Distribuidora distribuidora;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     public Filme(String tituloOriginal, String tituloPortugues, String sinopse, 
             String genero, String paises, String atores, 
             String diretores, int duracao, int ano, boolean ehLancamento, 

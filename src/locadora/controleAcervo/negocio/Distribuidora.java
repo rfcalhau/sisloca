@@ -4,11 +4,20 @@ package locadora.controleAcervo.negocio;
 
 public class Distribuidora {
     
+    private int id; // chave primaria do banco
     private String cnpj;
     private String razaoSocial;
     private String endereco;
     private String telefone;
     private String pessoaContato;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
