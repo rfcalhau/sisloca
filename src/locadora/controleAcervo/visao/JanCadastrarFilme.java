@@ -1,15 +1,21 @@
 
 package locadora.controleAcervo.visao;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import locadora.controleAcervo.negocio.Distribuidora;
 import locadora.controleAcervo.negocio.Funcionario;
 import locadora.controleAcervo.negocio.Genero;
+import locadora.controleAcervo.negocio.Pais;
+import locadora.controleAcervo.persistencia.PersistenciaFilme;
 
 
 public class JanCadastrarFilme extends javax.swing.JFrame {
 
+    
+  
     
     public JanCadastrarFilme() {
         initComponents();
@@ -18,11 +24,22 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         // adiciona as distribuidoras no respectivo combo
         List<Distribuidora> distribuidoras = Funcionario.obterDistribuidoras();
         
+        
+        // Distribuidoras
         for(Distribuidora d : distribuidoras)
             this.cbDistribuidora.addItem(d);
         
+        
+        // Generos
         for(Genero g: Genero.values())
             this.cbGenero.addItem(g);
+        
+        // Paises
+        DefaultListModel model = new DefaultListModel();
+        this.jList1.setModel(model);
+        List<Pais> paises = PersistenciaFilme.obterPaises(); // #### acesso ao BD
+        for (Pais p: paises)
+            model.addElement(p);
         
     }
 
@@ -52,8 +69,9 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
         cbGenero = new javax.swing.JComboBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,7 +126,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
 
         jLabel10.setText("Países:");
 
-        jTextField8.setText("USA");
+        jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,7 +135,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -132,17 +150,19 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                             .addComponent(jTextField1)
                             .addComponent(jTextField4)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
+                                .addGap(0, 0, 0)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 102, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -153,8 +173,7 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField5)
                             .addComponent(jTextField6)
-                            .addComponent(cbDistribuidora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField8))))
+                            .addComponent(cbDistribuidora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -188,13 +207,12 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCheckBox1)
                             .addComponent(jLabel9)
@@ -204,10 +222,10 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(cbDistribuidora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(47, Short.MAX_VALUE))))
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -229,10 +247,10 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         boolean la = this.jCheckBox1.isSelected();
         String si = this.jTextArea1.getText();
         int ano = Integer.valueOf(this.jTextField7.getText());
-        String pa = this.jTextField8.getText();
+        //String pa = this.jTextField8.getText();
         Distribuidora dis = (Distribuidora) this.cbDistribuidora.getSelectedItem();
-        
-        Funcionario.inserirFilme(dis, to, tp, ge, du, at, dir, la, si, ano, pa);
+        List<Pais> paises = this.jList1.getSelectedValuesList();
+        Funcionario.inserirFilme(dis, to, tp, ge, du, at, dir, la, si, ano, paises);
         
         //mensagem de confirmacao
        // ###### e se der errado???
@@ -290,7 +308,9 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -298,6 +318,5 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 }

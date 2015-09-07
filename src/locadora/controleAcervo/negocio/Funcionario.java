@@ -24,7 +24,7 @@ public class Funcionario {
     public static void inserirFilme(Distribuidora dis, String tituloOr, 
             String tituloPort, Genero genero, int duracao, String atores, 
             String diretores, boolean ehLancamento, String sinopse,
-            int ano, String paises) {
+            int ano, List<Pais> paises) {
         
         Filme f = new Filme(tituloOr, tituloPort, sinopse, genero, paises, 
                 atores, diretores, duracao, ano, ehLancamento, dis);

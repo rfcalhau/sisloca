@@ -1,6 +1,8 @@
 
 package locadora.controleAcervo.negocio;
 
+import java.util.List;
+
 
 public class Filme {
     private int id; // chave primaria
@@ -8,7 +10,7 @@ public class Filme {
     private String tituloPortugues;
     private String sinopse;
     private Genero genero;
-    private String paises;
+    private List<Pais> paises;
     private String atores;
     private String diretores;
     private int duracao;
@@ -26,7 +28,7 @@ public class Filme {
     
     
     public Filme(String tituloOriginal, String tituloPortugues, String sinopse, 
-            Genero genero, String paises, String atores, 
+            Genero genero, List<Pais> paises, String atores, 
             String diretores, int duracao, int ano, boolean ehLancamento, 
             Distribuidora distribuidora) {
         this.tituloOriginal = tituloOriginal;
@@ -106,7 +108,7 @@ public class Filme {
         return ano;
     }
 
-    public String getPaises() {
+    public List<Pais> getPaises() {
         return paises;
     }
 
@@ -122,7 +124,7 @@ public class Filme {
         return distribuidora;
     }
 
-    public void setPaises(String paises) {
+    public void setPaises(List<Pais> paises) {
         this.paises = paises;
     }
 
