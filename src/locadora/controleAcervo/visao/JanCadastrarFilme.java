@@ -3,6 +3,8 @@ package locadora.controleAcervo.visao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import locadora.controleAcervo.negocio.Distribuidora;
@@ -10,6 +12,8 @@ import locadora.controleAcervo.negocio.Funcionario;
 import locadora.controleAcervo.negocio.Genero;
 import locadora.controleAcervo.negocio.Pais;
 import locadora.controleAcervo.persistencia.PersistenciaFilme;
+import util.excecao.ExcecaoNegocio;
+import util.excecao.ExcecaoPersistencia;
 
 
 public class JanCadastrarFilme extends javax.swing.JFrame {
@@ -22,24 +26,31 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         
         
         // adiciona as distribuidoras no respectivo combo
-        List<Distribuidora> distribuidoras = Funcionario.obterDistribuidoras();
+        List<Distribuidora> distribuidoras;
+        try {
+            distribuidoras = Funcionario.obterDistribuidoras();
+            // Distribuidoras
+            for(Distribuidora d : distribuidoras)
+                this.cbDistribuidora.addItem(d);
+            
+            // Generos
+            for(Genero g: Genero.values())
+                this.cbGenero.addItem(g);
         
+            // Paises
+            DefaultListModel model = new DefaultListModel();
+            this.jList1.setModel(model);
+            List<Pais> paises;
+            paises = Funcionario.obterPaises();
+                for (Pais p: paises)
+                model.addElement(p);
         
-        // Distribuidoras
-        for(Distribuidora d : distribuidoras)
-            this.cbDistribuidora.addItem(d);
+        } catch (ExcecaoNegocio ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a janela Cadastrar Filmes: " 
+                    + ex.getMessage(), "Erro!!", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
         
-        
-        // Generos
-        for(Genero g: Genero.values())
-            this.cbGenero.addItem(g);
-        
-        // Paises
-        DefaultListModel model = new DefaultListModel();
-        this.jList1.setModel(model);
-        List<Pais> paises = PersistenciaFilme.obterPaises(); // #### acesso ao BD
-        for (Pais p: paises)
-            model.addElement(p);
         
     }
 
@@ -250,11 +261,21 @@ public class JanCadastrarFilme extends javax.swing.JFrame {
         //String pa = this.jTextField8.getText();
         Distribuidora dis = (Distribuidora) this.cbDistribuidora.getSelectedItem();
         List<Pais> paises = this.jList1.getSelectedValuesList();
-        Funcionario.inserirFilme(dis, to, tp, ge, du, at, dir, la, si, ano, paises);
         
-        //mensagem de confirmacao
-       // ###### e se der errado???
-       JOptionPane.showMessageDialog(this, "Filme Inserida com sucesso");
+        
+        try {
+            Funcionario.inserirFilme(dis, to, tp, ge, du, at, dir, la, si, ano, paises);
+            
+            //mensagem de confirmacao
+            JOptionPane.showMessageDialog(this, "Filme Inserida com sucesso");
+            
+        } catch (ExcecaoNegocio ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível inserir o filme: "
+                    +ex.getMessage(), "Erro!!", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+
        
        //fecha a janela
        this.dispose();

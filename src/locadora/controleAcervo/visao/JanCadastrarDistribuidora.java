@@ -1,15 +1,23 @@
 
 package locadora.controleAcervo.visao;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 import locadora.controleAcervo.negocio.Funcionario;
+import util.excecao.ExcecaoNegocio;
 
 
 public class JanCadastrarDistribuidora extends javax.swing.JFrame {
-
+    MaskFormatter mascaraCNPJ = null; 
    
     public JanCadastrarDistribuidora() {
         initComponents();
+        
+
     }
 
     
@@ -20,8 +28,10 @@ public class JanCadastrarDistribuidora extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        try {             mascaraCNPJ = new MaskFormatter("##.###.###/####-##");             mascaraCNPJ.setValidCharacters("1234567890");             mascaraCNPJ.setPlaceholderCharacter('_');                      } catch (ParseException ex) {             Logger.getLogger(JanCadastrarDistribuidora.class.getName()).log(Level.SEVERE, null, ex);         }
+        jTextField2 = new JFormattedTextField(mascaraCNPJ);
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,38 +46,50 @@ public class JanCadastrarDistribuidora extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 2, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel3.setText("caso contenha o digito 9, o cnpj será considerado inválido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2)
+                .addGap(60, 60, 60)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(316, 316, 316)
                 .addComponent(jButton1))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1))
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel2))
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(184, 184, 184)
+                .addComponent(jButton1))
         );
 
         pack();
@@ -80,16 +102,19 @@ public class JanCadastrarDistribuidora extends javax.swing.JFrame {
        String cnpj = this.jTextField2.getText();
        
        
-       // criei como sendo STATIC
-       // o funcionário logado poderia ser pego na sessao (ou cache)!!!
-       Funcionario.inserirDistribuidora(razao, cnpj);
-       
-      
-       
-       //mensagem de confirmacao
-       // ###### e se der errado???
-       JOptionPane.showMessageDialog(this, "Distribuidora Inserida com sucesso");
-       
+        try {
+            // criei como sendo STATIC
+            // o funcionário logado poderia ser pego na sessao (ou cache)!!!
+            Funcionario.inserirDistribuidora(razao, cnpj);
+            
+            //mensagem de confirmacao
+            JOptionPane.showMessageDialog(this, "Distribuidora Inserida com sucesso");
+            
+        } catch (ExcecaoNegocio ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!!", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
        //fecha a janela
        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -133,6 +158,7 @@ public class JanCadastrarDistribuidora extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

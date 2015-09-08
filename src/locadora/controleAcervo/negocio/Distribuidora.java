@@ -1,6 +1,8 @@
 
 package locadora.controleAcervo.negocio;
 
+import util.excecao.ExcecaoNegocio;
+
 
 public class Distribuidora {
     
@@ -86,6 +88,15 @@ public class Distribuidora {
         this.pessoaContato = pessoaContato;
         this.ativa = ativa;
     }
+    
+    
+  
+     
+    public  void validarCnpj( ) throws ExcecaoNegocio { 
+        if (this.cnpj.contains("9") )
+            throw new ExcecaoNegocio("CNPJ invalido!", null);
+    } 
+    
     
     
     

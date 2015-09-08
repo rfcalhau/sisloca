@@ -7,16 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import locadora.controleAcervo.negocio.Distribuidora;
+import util.excecao.ExcecaoPersistencia;
 import util.persistencia.Conexao;
 
 
 public class PersistenciaDistribuidora {
     
-    public static void inserir (Distribuidora d) {
+    public static void inserir (Distribuidora d) throws ExcecaoPersistencia {
      try {
             Connection c = Conexao.conectar();
             
@@ -30,12 +28,15 @@ public class PersistenciaDistribuidora {
             Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            ExcecaoPersistencia ep = new ExcecaoPersistencia("erro ao inserir"
+                    + "na tabela distribuidoras", ex);
+            throw ep;
         }
     
     }
     
-    public static List<Distribuidora> obter(){
+    public static List<Distribuidora> obter() throws ExcecaoPersistencia{
         List<Distribuidora> distribuidoras;
         distribuidoras = new ArrayList<>();
         
@@ -62,7 +63,10 @@ public class PersistenciaDistribuidora {
             Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            ExcecaoPersistencia ep = new ExcecaoPersistencia("erro ao consultar"
+                    + "a tabela distribuidoras", ex);
+            throw ep;
         }
         return distribuidoras;
     }

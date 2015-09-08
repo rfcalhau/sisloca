@@ -7,16 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import locadora.controleAcervo.negocio.Filme;
 import locadora.controleAcervo.negocio.Pais;
+import util.excecao.ExcecaoPersistencia;
 import util.persistencia.Conexao;
 
 
 public class PersistenciaFilme {
 
-    public static void inserir(Filme f) {
+    public static void inserir(Filme f) throws ExcecaoPersistencia {
         try {
             Connection c = Conexao.conectar();
             
@@ -59,14 +58,17 @@ public class PersistenciaFilme {
             Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            ExcecaoPersistencia ep = new ExcecaoPersistencia("Erro ao inserir"
+                    + "na tabela filmes", ex);
+            throw ep;
         } 
     }
     
    
     
     
-    public static List<Pais> obterPaises(){
+    public static List<Pais> obterPaises() throws  ExcecaoPersistencia{
         List<Pais> paises;
         paises = new ArrayList<>();
         
@@ -92,7 +94,10 @@ public class PersistenciaFilme {
             Conexao.desconectar();
 
         } catch (SQLException | java.lang.ClassNotFoundException ex) {
-            Logger.getLogger(PersistenciaDistribuidora.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
+            ExcecaoPersistencia ep = new ExcecaoPersistencia("erro os consultar"
+                    + "a tabela paises", ex);
+            throw ep;
         }
         return paises;
     }
